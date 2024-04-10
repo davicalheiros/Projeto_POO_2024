@@ -1,8 +1,8 @@
 public class Menus {
    
-    private static int menu_counter=0;
+    private static int menu_counter = 0;
 
-    public static String imprime_cabecalho () {
+    public static String imprime_cabecalho_principal () {
         return "========== BANCO ==========";
     }
 
@@ -12,11 +12,25 @@ public class Menus {
             Opcoes:
             
             1- Criar conta
-            2- Exibir conta
+            2- Exibir dados da conta
             3- Operacoes 
             4- Sair
 
         """; 
+    }
+
+    public static String menu_02 (Conta conta) {
+        return """
+
+        =============== CONTA ===============
+        Nome do titular    : %s
+        CPF do titular     : %s
+        Data de nascimento : %s
+        Telefone           : %s
+        E-mail             : %s
+
+
+        """.formatted(conta.cliente.getNome_Completo(),conta.cliente.getCpf(),conta.cliente.getData_nascimento(),conta.cliente.getTelefone(),conta.cliente.getEmail());
     }
 
     public static String menu_cadastro() {
