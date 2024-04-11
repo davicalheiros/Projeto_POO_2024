@@ -1,6 +1,6 @@
 public class Menus {
-   
-    private static int menu_counter = 0;
+
+    static Leitura leitura = new Leitura();
 
     public static String imprime_cabecalho_principal () {
         return """
@@ -32,12 +32,12 @@ public class Menus {
         Telefone           : %s
         E-mail             : %s
         ================================================
-
         """.formatted(conta.cliente.getNome_Completo(),conta.cliente.getCpf(),conta.cliente.getData_nascimento(),conta.cliente.getTelefone(),conta.cliente.getEmail());
     }
 
     public static String menu_03 (Conta conta) {
         return """
+
             =============== OPERACOES ===============
             Saldo.............: %.2f
             Limite de saque...: %.2f
@@ -48,8 +48,6 @@ public class Menus {
             4 - Emprestimo
             5 - Retornar
             =========================================
-
-
         """.formatted(conta.getSaldo(),conta.getLimite_de_saque());
     }
 
@@ -68,45 +66,15 @@ public class Menus {
         """;
     }
 
-    public static String menu_cadastro() {
+    public static void menu_cadastro(Conta conta) {
 
-        if (menu_counter==0) {
-            menu_counter++;
-            return """
+        imprime_cabecalho_principal();
+        conta.cliente.setNome_Completo(leitura.entDados("Insira o seu nome completo..: \s"));
+        conta.cliente.setCpf(leitura.entDados("Insira o seu cpf..: \s"));
+        conta.cliente.setData_nascimento(leitura.entDados("Insira a data do seu nascimento..: \s"));
+        conta.cliente.setEmail(leitura.entDados("Insira o seu e-mail..: \s"));
+        conta.cliente.setTelefone(leitura.entDados("Insira o seu telefone..: \s"));
+        System.out.println("Cadastro realizado com sucesso!");
 
-                ========================================
-                Insira o seu Nome Completo..:\s""";
-        }
-        else if (menu_counter==1) {   
-            menu_counter++;
-            return """
-
-                ========================================
-                Insira o seu CPF..:\s""";
-        }
-        else if (menu_counter==2) {
-            menu_counter++;
-            return """
-
-                ========================================
-                Insira a data do seu nascimento..:\s""";
-        }
-        else if (menu_counter==3) {
-            menu_counter++;
-            return """
-
-                ========================================
-                Insira o seu telefone de contato..:\s""";
-        }
-        else if (menu_counter==4) {
-            menu_counter++;
-            return """
-
-                ========================================
-                Insira o seu e-mail..:\s""";
-        }
-
-        return "Cadastro finalizado!";
     }
-
 }

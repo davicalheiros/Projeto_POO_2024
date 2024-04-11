@@ -6,7 +6,7 @@ public class Main {
         
         //int indices_array=0;
 
-        Conta conta1 = new Conta();
+        Conta conta = new Conta();
         Leitura leitura = new Leitura();
         int opcao = 0;
         //ArrayList <Conta> lista_de_clientes = new ArrayList();
@@ -22,15 +22,8 @@ public class Main {
             
                 case 1:
  
-                    conta1.cliente.setNome_Completo(leitura.entDados(Menus.menu_cadastro()));
-                    conta1.cliente.setCpf(leitura.entDados(Menus.menu_cadastro()));
-                    conta1.cliente.setData_nascimento(leitura.entDados(Menus.menu_cadastro()));
-                    conta1.cliente.setTelefone(leitura.entDados(Menus.menu_cadastro()));
-                    conta1.cliente.setEmail(leitura.entDados(Menus.menu_cadastro()));
-                    leitura.entDados("""
-                        
-                    Pressione uma tecla para retornar ao menu principal.
-                    """);
+                    Menus.menu_cadastro(conta);
+                    leitura.entDados("Pressione uma tecla para retornar ao menu principal.");
 
                     //lista_de_clientes.add(new Conta());
                     break;
@@ -44,7 +37,7 @@ public class Main {
                     System.out.println(msg_aviso.formatted(indices_array));
                     break;
 */
-                    System.out.println(Menus.menu_02(conta1));
+                    System.out.println(Menus.menu_02(conta));
                     leitura.entDados("Digite uma tecla para retornar ao menu principal.");
                     break;
             
@@ -52,19 +45,47 @@ public class Main {
 
                     do{
 
-                        opcao = Integer.parseInt(leitura.entDados(Menus.menu_03(conta1)));
+                        opcao = Integer.parseInt(leitura.entDados(Menus.menu_03(conta)));
                         
                         switch (opcao) {
                             
                             case 1:
-                                conta1.setSaldo(conta1.getSaldo()+Float.parseFloat(leitura.entDados("Insira o valor a depositar..: ")));
-                                leitura.entDados("Deposito realizado com sucesso! Pressione uma tecla para continuar");
+                                conta.setSaldo(conta.getSaldo()+Float.parseFloat(leitura.entDados("Insira o valor a depositar..: ")));
+                                leitura.entDados("Deposito realizado com sucesso! Pressione uma tecla para continuar.");
                                 break;
 
                             case 2: 
-                                conta1.setSaldo(conta1.getSaldo()+Float.parseFloat(leitura.entDados("")));
-                                break;
+                                
+                                float valor_saque = Float.parseFloat(leitura.entDados("Insira o valor que deseja sacar..: "));
+                                
+                                if(conta.getLimite_de_saque() < valor_saque) {
+                                    leitura.entDados("Nao foi possivel sacar, o valor ultrapassa seu limite de saque");
+                                    break;
+                                }
+
+                                else if (conta.getSaldo() < valor_saque) {
+                                    leitura.entDados("Nao foi possivel sacar, o valor ultrapassa o seu valor em saldo");
+                                    break;
+                                }   
+
+                                else {
+                                    conta.setSaldo(conta.getSaldo()-valor_saque);
+                                    conta.setLimite_de_saque(conta.getLimite_de_saque()-valor_saque);
+                                    leitura.entDados("Saque realizado com sucesso! Pressione uma tecla para continuar");
+                                    break;
+                                }
                         
+                            case 3:
+
+                                break;
+                            
+                            case 4:
+
+                                break;
+
+                            case 5:
+                                break;
+
                             default:
                                 break;
                         }
